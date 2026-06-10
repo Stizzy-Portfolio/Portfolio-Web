@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stizzy - Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #ece6dc;
+      --surface: #f6f1e9;
+      --paper: #ffffff;
+      --border: #b9ab9a;
+      --rule: #9f9182;
+      --muted: #675e56;
+      --body: #272321;
+      --heading: #11100f;
+      --accent: #6f1713;
+      --charcoal: #24211f;
+      --shadow: rgba(46, 36, 29, 0.18);
+      --container: 1280px;
+      --gutter: clamp(2.5rem, 6vw, 7rem);
+    }
+
+    html {
+      font-size: 16px;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg);
+      background-image:
+        url("data:image/svg+xml,%3Csvg width='520' height='520' viewBox='0 0 520 520' xmlns='http://www.w3.org/2000/svg'%3E%3Cg stroke='%236f1713' stroke-linecap='round' fill='none'%3E%3Cg opacity='.16' stroke-width='.85'%3E%3Cpath d='M47 84c19-8 32-16 57-24'/%3E%3Cpath d='M188 38c-7 30-12 53-28 82'/%3E%3Cpath d='M336 72c42 9 73 12 119 5'/%3E%3Cpath d='M430 159c-34 18-62 35-94 64'/%3E%3Cpath d='M86 226c29 7 52 18 82 35'/%3E%3Cpath d='M260 238c-12 39-24 70-44 110'/%3E%3Cpath d='M391 307c33-6 56-15 89-33'/%3E%3Cpath d='M57 430c48-18 92-27 137-31'/%3E%3Cpath d='M312 444c25-22 49-36 86-52'/%3E%3C/g%3E%3Cg opacity='.1' stroke-width='.65'%3E%3Cpath d='M125 128c8 18 13 38 14 62'/%3E%3Cpath d='M231 151c28-10 52-15 86-13'/%3E%3Cpath d='M32 317c31-14 59-24 88-27'/%3E%3Cpath d='M180 468c-8-21-9-39-4-63'/%3E%3Cpath d='M471 446c-24-28-42-48-58-79'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"),
+        url("data:image/svg+xml,%3Csvg width='360' height='360' viewBox='0 0 360 360' xmlns='http://www.w3.org/2000/svg'%3E%3Cg stroke='%23675e56' stroke-width='1.15' stroke-linecap='round' fill='none'%3E%3Cg opacity='.12'%3E%3Cpath d='M34 42l10 10M44 42L34 52'/%3E%3Cpath d='M143 28l8 8M151 28l-8 8'/%3E%3Cpath d='M272 50l12 12M284 50l-12 12'/%3E%3Cpath d='M319 119l7 7M326 119l-7 7'/%3E%3Cpath d='M77 143l13 13M90 143l-13 13'/%3E%3Cpath d='M210 136l9 9M219 136l-9 9'/%3E%3Cpath d='M35 260l8 8M43 260l-8 8'/%3E%3Cpath d='M159 246l12 12M171 246l-12 12'/%3E%3Cpath d='M287 270l10 10M297 270l-10 10'/%3E%3C/g%3E%3Cg opacity='.08'%3E%3Cpath d='M103 77l7 7M110 77l-7 7'/%3E%3Cpath d='M231 88l14 14M245 88l-14 14'/%3E%3Cpath d='M21 176l10 10M31 176l-10 10'/%3E%3Cpath d='M136 184l6 6M142 184l-6 6'/%3E%3Cpath d='M258 198l11 11M269 198l-11 11'/%3E%3Cpath d='M335 226l9 9M344 226l-9 9'/%3E%3Cpath d='M93 316l12 12M105 316l-12 12'/%3E%3Cpath d='M219 313l7 7M226 313l-7 7'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      background-size: 520px 520px, 360px 360px;
+      background-position: 0 0;
+      color: var(--body);
+      font-family: 'Lora', Georgia, serif;
+      font-weight: 400;
+      line-height: 1.78;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      position: relative;
+      isolation: isolate;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      z-index: 0;
+      width: min(var(--container), calc(100% - (var(--gutter) * 2)));
+      transform: translateX(-50%);
+      background: rgba(246, 241, 233, 0.18);
+      backdrop-filter: blur(1.4px);
+      -webkit-backdrop-filter: blur(1.4px);
+      pointer-events: none;
+    }
+
+    body > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 1.05rem var(--gutter);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(236, 230, 220, 0.92);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(10px);
+    }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 300;
+      font-size: 1rem;
+      letter-spacing: 0.08em;
+      color: var(--heading);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: color 0.25s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--heading);
+    }
+
+    .hero {
+      padding: 7rem var(--gutter) 3.75rem;
+      max-width: var(--container);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, 1.55fr) minmax(280px, 0.75fr);
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .hero-copy {
+      align-self: center;
+      padding-bottom: 0;
+    }
+
+    .hero-eyebrow {
+      font-size: 1rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--heading);
+      margin-bottom: 0.8rem;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .hero-name {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 300;
+      font-size: clamp(2.2rem, 4vw, 4rem);
+      line-height: 1;
+      color: var(--heading);
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-name em {
+      font-style: italic;
+      font-weight: 300;
+    }
+
+    .hero-bio {
+      max-width: 34ch;
+      font-size: 1rem;
+      color: #1f1c1a;
+      line-height: 1.95;
+      border-left: 2px solid var(--accent);
+      padding-left: 1.5rem;
+      margin-left: 2px;
+    }
+
+    .hero-image {
+      grid-column: 1;
+      grid-row: 1;
+      padding: clamp(0.9rem, 1.4vw, 1.35rem);
+      background: var(--paper);
+      border: 1px solid var(--rule);
+      box-shadow: 0 1.2rem 3rem var(--shadow);
+    }
+
+    .hero-copy {
+      grid-column: 2;
+      grid-row: 1;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .section-label {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 300;
+      font-size: clamp(1.35rem, 2vw, 1.8rem);
+      color: var(--heading);
+    }
+
+    #work {
+      padding: 3rem var(--gutter) 5rem;
+      max-width: var(--container);
+      margin: 0 auto;
+    }
+
+    .series-list {
+      display: flex;
+      flex-direction: column;
+      gap: clamp(3rem, 5vw, 5rem);
+    }
+
+    .work-series {
+      display: grid;
+      grid-template-columns: minmax(260px, 0.48fr) minmax(0, 1fr);
+      gap: clamp(1.5rem, 3vw, 3rem);
+      align-items: start;
+      padding-top: clamp(1.4rem, 2vw, 2rem);
+      border-top: 1px solid var(--rule);
+    }
+
+    .series-intro {
+      position: sticky;
+      top: 5.25rem;
+      padding-right: 1rem;
+    }
+
+    .series-kicker {
+      margin-bottom: 0.7rem;
+      font-size: 0.68rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .series-title {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 300;
+      font-size: clamp(1.9rem, 3vw, 3.25rem);
+      line-height: 1;
+      color: var(--heading);
+      margin-bottom: 1rem;
+    }
+
+    .series-description {
+      max-width: 34ch;
+      color: #3e3833;
+      font-size: 0.98rem;
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+    }
+
+    .series-count {
+      display: inline-flex;
+      border-top: 1px solid var(--rule);
+      padding-top: 0.75rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .series-gallery {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.35rem;
+      align-items: start;
+    }
+
+    .work-item {
+      background: transparent;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .work-item--feature {
+      grid-column: 1 / -1;
+    }
+
+    .work-frame {
+      padding: clamp(0.8rem, 1.15vw, 1.15rem);
+      background: var(--paper);
+      border: 1px solid var(--rule);
+      box-shadow: 0 0.75rem 2rem var(--shadow);
+      overflow: hidden;
+    }
+
+    .work-frame img {
+      aspect-ratio: 16 / 9;
+      border: 1px solid #cfc3b5;
+      object-fit: cover;
+      transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .work-item:hover .work-frame img {
+      transform: scale(1.025);
+    }
+
+    .work-meta {
+      padding: 0.85rem 0 1rem;
+      text-align: center;
+    }
+
+    .work-title {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 400;
+      font-size: 1.22rem;
+      color: var(--heading);
+      margin-bottom: 0.2rem;
+    }
+
+    .work-item:hover .work-title {
+      color: var(--accent);
+      transition: color 0.2s ease;
+    }
+
+    .work-frame button {
+      display: block;
+      width: 100%;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      cursor: zoom-in;
+      font: inherit;
+    }
+
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      display: grid;
+      place-items: center;
+      padding: clamp(1rem, 3vw, 2.5rem);
+      background: rgba(17, 16, 15, 0.42);
+      backdrop-filter: blur(9px);
+      -webkit-backdrop-filter: blur(9px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.22s ease;
+    }
+
+    .lightbox.is-open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .lightbox-panel {
+      width: min(1120px, 100%);
+      max-height: min(88vh, 820px);
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      grid-template-rows: minmax(0, 1fr) auto;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .lightbox-frame {
+      grid-column: 2;
+      min-width: 0;
+      padding: clamp(0.75rem, 1.4vw, 1.25rem);
+      background: rgba(255, 255, 255, 0.96);
+      border: 1px solid var(--rule);
+      box-shadow: 0 1.4rem 4rem rgba(17, 16, 15, 0.38);
+    }
+
+    .lightbox-image {
+      max-height: calc(88vh - 9rem);
+      aspect-ratio: 16 / 9;
+      object-fit: contain;
+      border: 1px solid #cfc3b5;
+      background: #11100f;
+    }
+
+    .lightbox-title {
+      grid-column: 2;
+      text-align: center;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: clamp(1.35rem, 2vw, 2rem);
+      color: #f6f1e9;
+      text-shadow: 0 0.2rem 1rem rgba(17, 16, 15, 0.55);
+    }
+
+    .lightbox-button {
+      width: 2.75rem;
+      height: 2.75rem;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(246, 241, 233, 0.55);
+      border-radius: 50%;
+      background: rgba(17, 16, 15, 0.45);
+      color: #f6f1e9;
+      font-size: 1.6rem;
+      line-height: 1;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    .lightbox-button:hover {
+      background: rgba(17, 16, 15, 0.72);
+      transform: translateY(-1px);
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+    }
+
+    .lightbox-prev {
+      grid-column: 1;
+    }
+
+    .lightbox-next {
+      grid-column: 3;
+    }
+
+    #about {
+      padding: 4.5rem var(--gutter);
+      max-width: var(--container);
+      margin: 0 auto;
+    }
+
+    #about-wrap,
+    #contact-wrap {
+      border-top: 1px solid var(--rule);
+    }
+
+    .about-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .about-portrait {
+      padding: 0.8rem;
+      background: var(--paper);
+      border: 1px solid var(--rule);
+      box-shadow: 0 0.75rem 2rem var(--shadow);
+    }
+
+    .about-text h2 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 300;
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      color: var(--heading);
+      line-height: 1.15;
+      margin-bottom: 2rem;
+    }
+
+    .about-text h2 em {
+      font-style: italic;
+    }
+
+    .about-text p {
+      font-size: 1.08rem;
+      color: var(--body);
+      line-height: 1.85;
+      margin-bottom: 1.25rem;
+    }
+
+    .about-text p + p {
+      color: #3e3833;
+    }
+
+    .about-credits {
+      margin-top: 2.5rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--rule);
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .credit-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 1.5rem;
+      font-size: 0.78rem;
+      letter-spacing: 0.06em;
+    }
+
+    .credit-label {
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .credit-value {
+      color: var(--body);
+      text-align: right;
+    }
+
+    #contact {
+      padding: 4.5rem var(--gutter) 4rem;
+      max-width: var(--container);
+      margin: 0 auto;
+    }
+
+    .contact-layout {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 3rem;
+    }
+
+    .contact-cta {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 300;
+      font-size: clamp(2.2rem, 4vw, 4rem);
+      color: var(--heading);
+      line-height: 1.1;
+      max-width: 16ch;
+    }
+
+    .contact-cta em {
+      font-style: italic;
+    }
+
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      text-align: right;
+    }
+
+    .contact-links a {
+      font-size: 0.82rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: color 0.2s ease;
+      display: block;
+    }
+
+    .contact-links a:hover {
+      color: var(--accent);
+    }
+
+    footer {
+      padding: 2rem 1.5rem;
+      border-top: 1px solid var(--rule);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-copy {
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .footer-mark {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    @media (max-width: 900px) {
+      :root { --gutter: clamp(1.5rem, 4vw, 3rem); }
+      nav { padding: 1rem; }
+      .hero {
+        padding: 6.5rem var(--gutter) 3rem;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      .hero-image,
+      .hero-copy {
+        grid-column: auto;
+        grid-row: auto;
+      }
+      .hero-copy { padding-bottom: 0; }
+      #work { padding: 3.25rem var(--gutter) 4rem; }
+      #about { padding: 3.25rem var(--gutter); }
+      #contact { padding: 3.25rem var(--gutter); }
+      footer { padding: 1.5rem 1rem; }
+      .work-series {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+      .series-intro {
+        position: static;
+        padding-right: 0;
+      }
+      .series-gallery { grid-template-columns: 1fr 1fr; }
+      .about-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+      .about-portrait { max-width: 420px; }
+      .contact-layout { flex-direction: column; align-items: flex-start; }
+      .contact-links { text-align: left; }
+    }
+
+    @media (max-width: 560px) {
+      :root { --gutter: 1.25rem; }
+      .nav-links { display: none; }
+      .hero { padding-top: 5.75rem; }
+      .series-gallery { grid-template-columns: 1fr; }
+      .lightbox-panel {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: minmax(0, 1fr) auto auto;
+      }
+      .lightbox-frame,
+      .lightbox-title {
+        grid-column: 1 / -1;
+      }
+      .lightbox-prev,
+      .lightbox-next {
+        grid-row: 3;
+      }
+      .lightbox-prev { grid-column: 1; justify-self: end; }
+      .lightbox-next { grid-column: 2; justify-self: start; }
+      .credit-row { flex-direction: column; gap: 0.1rem; }
+      .credit-value { text-align: left; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <span class="nav-logo">Stizzy's Art Portfolio</span>
+    <ul class="nav-links">
+      <li><a href="#work">Work</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <header class="hero">
+    <div class="hero-image">
+      <img src="White-Series/room.jpg" alt="Room" width="800" height="450">
+    </div>
+    <div class="hero-copy">
+      <p class="hero-eyebrow">3D Artist &amp; Digital Illustrator</p>
+      <p class="hero-bio">
+        Mainly 3D Blender Work & Photoshop, I have been creating digital art for several years, Enjoy!
+      </p>
+    </div>
+  </header>
+
+  <section id="work">
+    <div class="section-header">
+      <h2 class="section-label">My Work</h2>
+    </div>
+
+    <div class="series-list">
+      <section class="work-series" aria-labelledby="white-series-title">
+        <div class="series-intro">
+          <p class="series-kicker">Series 01</p>
+          <h3 class="series-title" id="white-series-title">White Series</h3>
+          <p class="series-description">Using high contrast these pieces were built around the idea of analog horror, and a quiet uneasy atmosphere.</p>
+          <span class="series-count">9 works</span>
+        </div>
+
+        <div class="series-gallery">
+          <article class="work-item work-item--feature">
+            <div class="work-frame">
+              <img src="White-Series/Angel.jpg" alt="Angel" width="800" height="450">
+            </div>
+            <div class="work-meta">
+              <p class="work-title">Angel</p>
+            </div>
+          </article>
+
+          <article class="work-item">
+            <div class="work-frame">
+              <img src="White-Series/demon.jpg" alt="Demon" width="800" height="450">
+            </div>
+            <div class="work-meta">
+              <p class="work-title">Demon</p>
+            </div>
+          </article>
+
+          <article class="work-item">
+            <div class="work-frame">
+              <img src="White-Series/fight.jpg" alt="Fight" width="800" height="450">
+            </div>
+            <div class="work-meta">
+              <p class="work-title">Fight</p>
+            </div>
+          </article>
+
+          <article class="work-item">
+            <div class="work-frame">
+              <img src="White-Series/guitar.jpg" alt="Guitar" width="800" height="450">
+            </div>
+            <div class="work-meta">
+              <p class="work-title">Guitar</p>
+            </div>
+          </article>
+
+          <article class="work-item">
+            <div class="work-frame">
+              <img src="White-Series/gun.jpg" alt="Gun" width="800" height="450">
+            </div>
+            <div class="work-meta">
+              <p class="work-title">Gun</p>
+            </div>
+          </article>
+
+          <article class="work-item">
+            <div class="work-frame">
+              <img src="White-Series/prayx2.jpg" alt="Pray x2" width="800" height="450">
+            </div>
+            <div class="work-meta">
+              <p class="work-title">Pray x2</p>
+            </div>
+          </article>
+
+          <article class="work-item">
+            <div class="work-frame">
+              <img src="White-Series/room.jpg" alt="Room" width="800" height="450">
+            </div>
+            <div class="work-meta">
+              <p class="work-title">Room</p>
+            </div>
+          </article>
+
+          <article class="work-item">
+            <div class="work-frame">
+              <img src="White-Series/SelfDeath.jpg" alt="Self Death" width="800" height="450">
+            </div>
+            <div class="work-meta">
+              <p class="work-title">Self Death</p>
+            </div>
+          </article>
+
+          <article class="work-item">
+            <div class="work-frame">
+              <img src="White-Series/swing.jpg" alt="Swing" width="800" height="450">
+            </div>
+            <div class="work-meta">
+              <p class="work-title">Swing</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="work-series" aria-labelledby="red-blue-series-title">
+        <div class="series-intro">
+          <p class="series-kicker">Series 02</p>
+          <h3 class="series-title" id="red-blue-series-title">Red / Blue Series</h3>
+          <p class="series-description">A harsher color set with cinematic lighting, violent contrast, and dreamlike interior scenes.</p>
+          <span class="series-count">6 works</span>
+        </div>
+
+        <div class="series-gallery">
+          <article class="work-item work-item--feature">
+            <div class="work-frame">
+              <img src="RedSlashBlue-Series/House-On-Hill.png" alt="House On Hill" width="1920" height="1080">
+            </div>
+            <div class="work-meta">
+              <p class="work-title">House On Hill</p>
+            </div>
+          </article>
+
+          <article class="work-item">
+            <div class="work-frame">
+              <img src="RedSlashBlue-Series/Butterfly.jpg" alt="Butterfly" width="800" height="450">
+            </div>
+            <div class="work-meta">
+              <p class="work-title">Butterfly</p>
+            </div>
+          </article>
+
+          <article class="work-item">
+            <div class="work-frame">
+              <img src="RedSlashBlue-Series/hand.jpg" alt="Hand" width="800" height="450">
+            </div>
+            <div class="work-meta">
+              <p class="work-title">Hand</p>
+            </div>
+          </article>
+
+          <article class="work-item">
+            <div class="work-frame">
+              <img src="RedSlashBlue-Series/kill.jpg" alt="Kill" width="800" height="450">
+            </div>
+            <div class="work-meta">
+              <p class="work-title">Kill</p>
+            </div>
+          </article>
+
+          <article class="work-item">
+            <div class="work-frame">
+              <img src="RedSlashBlue-Series/redroomdark.jpg" alt="Red Room Dark" width="800" height="450">
+            </div>
+            <div class="work-meta">
+              <p class="work-title">Red Room Dark</p>
+            </div>
+          </article>
+
+          <article class="work-item">
+            <div class="work-frame">
+              <img src="RedSlashBlue-Series/Skeleton.png" alt="Skeleton" width="800" height="450">
+            </div>
+            <div class="work-meta">
+              <p class="work-title">Skeleton</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="work-series" aria-labelledby="full-color-series-title">
+        <div class="series-intro">
+          <p class="series-kicker">Series 03</p>
+          <h3 class="series-title" id="full-color-series-title">Full Color Series</h3>
+          <p class="series-description">More saturated environmental work, focused on atmosphere, depth, and strange quiet spaces.</p>
+          <span class="series-count">4 works</span>
+        </div>
+
+        <div class="series-gallery">
+          <article class="work-item work-item--feature">
+            <div class="work-frame">
+              <img src="FullColor-Series/Roof.jpg" alt="Roof" width="800" height="450">
+            </div>
+            <div class="work-meta">
+              <p class="work-title">Roof</p>
+            </div>
+          </article>
+
+          <article class="work-item">
+            <div class="work-frame">
+              <img src="FullColor-Series/alley.jpg" alt="Alley" width="800" height="450">
+            </div>
+            <div class="work-meta">
+              <p class="work-title">Alley</p>
+            </div>
+          </article>
+
+          <article class="work-item">
+            <div class="work-frame">
+              <img src="FullColor-Series/Astronaut.jpg" alt="Astronaut" width="800" height="450">
+            </div>
+            <div class="work-meta">
+              <p class="work-title">Astronaut</p>
+            </div>
+          </article>
+
+          <article class="work-item">
+            <div class="work-frame">
+              <img src="FullColor-Series/hallway.jpg" alt="Hallway" width="800" height="450">
+            </div>
+            <div class="work-meta">
+              <p class="work-title">Hallway</p>
+            </div>
+          </article>
+        </div>
+      </section>
+    </div>
+  </section>
+
+  <div id="about-wrap">
+  <section id="about">
+    <div class="about-layout">
+      <div class="about-portrait">
+        <img src="White-Series/room.jpg" alt="Room detail" width="800" height="450">
+      </div>
+
+      <div class="about-text">
+        <h2>Visual works with <em>personal expression</em></h2>
+        <p>
+          A portfolio ive slowly created, focusing negative space, and uneasy atmosphere and letting my work truly reflect me.
+        </p>
+        <p>
+          If you made it here thank you for visiting. <3 
+        </p>
+
+        <div class="about-credits">
+          <div class="credit-row">
+            <span class="credit-label">Artist</span>
+            <span class="credit-value">Stizzy</span>
+          </div>
+          <div class="credit-row">
+            <span class="credit-label">Pieces</span>
+            <span class="credit-value">Digital art, illustration</span>
+          </div>
+          <div class="credit-row">
+            <span class="credit-label">Focus</span>
+            <span class="credit-value">Uncanny realism</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  </div>
+
+  <div id="contact-wrap">
+  <section id="contact">
+    <div class="contact-layout">
+      <h2 class="contact-cta">Let's make <em>something</em> together</h2>
+      <div class="contact-links">
+        <a href="https://instagram.com/" target="_blank">Instagram</a>
+        <a href="https://twitter.com/" target="_blank">Twitter / X</a>
+      </div>
+    </div>
+  </section>
+  </div>
+
+  <footer>
+    <span class="footer-copy">&copy; 2026 Stizzy. All rights reserved.</span>
+    <div class="footer-mark"></div>
+  </footer>
+  <script src="gallery.js" defer></script>
+</body>
+</html>
